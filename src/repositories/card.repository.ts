@@ -1,3 +1,3 @@
 export const cardRepository = {
-  placeholder: () => undefined
+  placeholder: () => undefined,
 };

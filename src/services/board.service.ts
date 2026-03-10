@@ -1,3 +1,3 @@
 export const boardService = {
-  placeholder: () => undefined
+  placeholder: () => undefined,
 };

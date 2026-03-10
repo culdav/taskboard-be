@@ -1,3 +1,3 @@
 export const columnRepository = {
-  placeholder: () => undefined
+  placeholder: () => undefined,
 };

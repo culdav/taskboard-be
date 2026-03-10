@@ -1,3 +1,3 @@
 export const inviteService = {
-  placeholder: () => undefined
+  placeholder: () => undefined,
 };

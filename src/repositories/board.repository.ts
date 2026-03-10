@@ -1,3 +1,3 @@
 export const boardRepository = {
-  placeholder: () => undefined
+  placeholder: () => undefined,
 };

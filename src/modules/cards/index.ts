@@ -1,3 +1,3 @@
 export const cardsModule = {
-  placeholder: true
+  placeholder: true,
 };

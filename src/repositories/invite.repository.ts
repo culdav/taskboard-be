@@ -1,3 +1,3 @@
 export const inviteRepository = {
-  placeholder: () => undefined
+  placeholder: () => undefined,
 };

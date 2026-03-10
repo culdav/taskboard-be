@@ -1,3 +1,3 @@
 export const userRepository = {
-  placeholder: () => undefined
+  placeholder: () => undefined,
 };

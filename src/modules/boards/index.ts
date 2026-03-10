@@ -1,3 +1,3 @@
 export const boardsModule = {
-  placeholder: true
+  placeholder: true,
 };

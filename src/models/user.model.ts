@@ -1,34 +1,39 @@
-import { Schema, model, type InferSchemaType, type HydratedDocument } from 'mongoose';
+import {
+  Schema,
+  model,
+  type InferSchemaType,
+  type HydratedDocument,
+} from 'mongoose';
 
 const refreshTokenSchema = new Schema(
   {
     tokenHash: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
     },
     expiresAt: {
       type: Date,
-      required: true
+      required: true,
     },
     revokedAt: {
       type: Date,
-      default: null
+      default: null,
     },
     userAgent: {
       type: String,
       trim: true,
-      default: null
+      default: null,
     },
     ip: {
       type: String,
       trim: true,
-      default: null
-    }
+      default: null,
+    },
   },
   {
     _id: false,
-    timestamps: true
+    timestamps: true,
   }
 );
 
@@ -37,44 +42,44 @@ const userSchema = new Schema(
     name: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
       lowercase: true,
-      trim: true
+      trim: true,
     },
     passwordHash: {
       type: String,
       required: true,
-      select: false
+      select: false,
     },
     refreshTokens: {
       type: [refreshTokenSchema],
-      default: []
+      default: [],
     },
     role: {
       type: String,
       enum: ['user', 'admin'],
-      default: 'user'
+      default: 'user',
     },
     isEmailVerified: {
       type: Boolean,
-      default: false
+      default: false,
     },
     lastLoginAt: {
       type: Date,
-      default: null
+      default: null,
     },
     deletedAt: {
       type: Date,
-      default: null
-    }
+      default: null,
+    },
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
 

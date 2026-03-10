@@ -1,3 +1,3 @@
 export const invitesModule = {
-  placeholder: true
+  placeholder: true,
 };

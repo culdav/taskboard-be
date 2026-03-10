@@ -1,3 +1,3 @@
 export const cardService = {
-  placeholder: () => undefined
+  placeholder: () => undefined,
 };

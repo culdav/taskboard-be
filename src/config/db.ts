@@ -3,16 +3,18 @@ import { env } from './env.js';
 
 export async function connectDb(): Promise<void> {
   if (!env.mongoDbUri) {
-    throw new Error('MONGODB_URI is not set. Add it to your environment before starting the server.');
+    throw new Error(
+      'MONGODB_URI is not set. Add it to your environment before starting the server.'
+    );
   }
 
-  try{
+  try {
     await mongoose.connect(env.mongoDbUri);
   } catch (error) {
     console.error('Failed to connect to MongoDB:', error);
     throw error;
   }
-  
+
   console.log('MongoDB connected');
 }
 

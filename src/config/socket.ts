@@ -6,7 +6,7 @@ export function createSocketServer(httpServer: HttpServer): SocketIOServer {
   return new SocketIOServer(httpServer, {
     cors: {
       origin: env.clientUrl,
-      credentials: true
-    }
+      credentials: true,
+    },
   });
 }

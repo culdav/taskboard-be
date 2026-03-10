@@ -1,3 +1,3 @@
 export const authModule = {
-  placeholder: true
+  placeholder: true,
 };

@@ -1,6 +1,7 @@
 import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
+import morgan from 'morgan';
 import { env } from './config/env.js';
 import { errorHandler } from './middleware/error.middleware.js';
 import { notFoundHandler } from './middleware/not-found.middleware.js';
@@ -8,11 +9,12 @@ import apiRouter from './routes/index.js';
 
 const app = express();
 
+app.use(morgan('dev'));
 app.use(helmet());
 app.use(
   cors({
     origin: env.clientUrl,
-    credentials: true
+    credentials: true,
   })
 );
 app.use(express.json());

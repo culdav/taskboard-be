@@ -10,7 +10,9 @@ const requiredEnvVars = ['MONGODB_URI'] as const;
 const missingEnvVars = requiredEnvVars.filter((key) => !process.env[key]);
 
 if (process.env.NODE_ENV !== 'test' && missingEnvVars.length > 0) {
-  throw new Error(`Missing required environment variables: ${missingEnvVars.join(', ')}`);
+  throw new Error(
+    `Missing required environment variables: ${missingEnvVars.join(', ')}`
+  );
 }
 
 export const env = {
@@ -22,5 +24,5 @@ export const env = {
   jwtRefreshSecret: process.env.JWT_REFRESH_SECRET ?? '',
   inviteSecret: process.env.INVITE_SECRET ?? '',
   accessTokenTtl: process.env.ACCESS_TOKEN_TTL ?? '15m',
-  refreshTokenTtl: process.env.REFRESH_TOKEN_TTL ?? '7d'
+  refreshTokenTtl: process.env.REFRESH_TOKEN_TTL ?? '7d',
 };

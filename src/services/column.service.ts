@@ -1,3 +1,3 @@
 export const columnService = {
-  placeholder: () => undefined
+  placeholder: () => undefined,
 };
