@@ -1,8 +1,11 @@
 import dotenv from 'dotenv';
+import fs from 'fs';
 
-dotenv.config();
+const envPath = fs.existsSync('.env.local') ? '.env.local' : '.env';
+dotenv.config({ path: envPath });
 
-const requiredEnvVars = ['MONGODB_URI', 'JWT_ACCESS_SECRET', 'JWT_REFRESH_SECRET', 'INVITE_SECRET'] as const;
+// const requiredEnvVars = ['MONGODB_URI', 'JWT_ACCESS_SECRET', 'JWT_REFRESH_SECRET', 'INVITE_SECRET'] as const;
+const requiredEnvVars = ['MONGODB_URI'] as const;
 
 const missingEnvVars = requiredEnvVars.filter((key) => !process.env[key]);
 

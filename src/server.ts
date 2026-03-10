@@ -3,17 +3,21 @@ import app from './app.js';
 import { connectDb, disconnectDb } from './config/db.js';
 import { env } from './config/env.js';
 import { initializeSockets } from './sockets/index.js';
+import mongoose from 'mongoose';
 
 const httpServer = http.createServer(app);
 
 initializeSockets(httpServer);
 
 async function startServer(): Promise<void> {
-  await connectDb();
-
-  httpServer.listen(env.port, () => {
-    console.log(`Server listening on port ${env.port}`);
+  mongoose.connection.once('open', () => {
+    console.log('MongoDB connection is open. Starting server...');
+    httpServer.listen(env.port, () => {
+      console.log(`Server listening on port ${env.port}`);
+    });
   });
+
+  await connectDb();
 }
 
 async function shutdown(signal: NodeJS.Signals): Promise<void> {
