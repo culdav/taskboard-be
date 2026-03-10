@@ -13,27 +13,23 @@ type AuthLocals = {
 function getClientMetadata(req: Request): { userAgent?: string; ip?: string } {
   return {
     userAgent: req.get('user-agent') ?? undefined,
-    ip: req.ip || undefined,
+    ip: req.ip || undefined
   };
 }
 
 const register: RequestHandler = async (req, res, next) => {
   try {
     const { name, email, password } = req.body as {
-      name?: string;
-      email?: string;
-      password?: string;
+      name: string;
+      email: string;
+      password: string;
     };
-
-    if (!name || !email || !password) {
-      throw new AppError('name, email and password are required', 400);
-    }
 
     const payload = await authService.register({
       name,
       email,
       password,
-      ...getClientMetadata(req),
+      ...getClientMetadata(req)
     });
 
     res.status(201).json(payload);
@@ -45,18 +41,14 @@ const register: RequestHandler = async (req, res, next) => {
 const login: RequestHandler = async (req, res, next) => {
   try {
     const { email, password } = req.body as {
-      email?: string;
-      password?: string;
+      email: string;
+      password: string;
     };
-
-    if (!email || !password) {
-      throw new AppError('email and password are required', 400);
-    }
 
     const payload = await authService.login({
       email,
       password,
-      ...getClientMetadata(req),
+      ...getClientMetadata(req)
     });
 
     res.status(200).json(payload);
@@ -68,16 +60,12 @@ const login: RequestHandler = async (req, res, next) => {
 const refresh: RequestHandler = async (req, res, next) => {
   try {
     const { refreshToken } = req.body as {
-      refreshToken?: string;
+      refreshToken: string;
     };
-
-    if (!refreshToken) {
-      throw new AppError('refreshToken is required', 400);
-    }
 
     const payload = await authService.refreshSession({
       refreshToken,
-      ...getClientMetadata(req),
+      ...getClientMetadata(req)
     });
 
     res.status(200).json(payload);
@@ -86,24 +74,16 @@ const refresh: RequestHandler = async (req, res, next) => {
   }
 };
 
-const logout: RequestHandler = async (
-  req: Request,
-  res: Response<any, AuthLocals>,
-  next
-) => {
+const logout: RequestHandler = async (req: Request, res: Response<any, AuthLocals>, next) => {
   try {
     const { refreshToken } = req.body as {
-      refreshToken?: string;
+      refreshToken: string;
     };
 
     const userId = res.locals.authUser?.userId;
 
     if (!userId) {
       throw new AppError('Unauthorized', 401);
-    }
-
-    if (!refreshToken) {
-      throw new AppError('refreshToken is required', 400);
     }
 
     await authService.logout({ userId, refreshToken });
@@ -114,11 +94,7 @@ const logout: RequestHandler = async (
   }
 };
 
-const logoutAll: RequestHandler = async (
-  req: Request,
-  res: Response<any, AuthLocals>,
-  next
-) => {
+const logoutAll: RequestHandler = async (req: Request, res: Response<any, AuthLocals>, next) => {
   try {
     const userId = res.locals.authUser?.userId;
 
@@ -134,11 +110,7 @@ const logoutAll: RequestHandler = async (
   }
 };
 
-const me: RequestHandler = async (
-  _req: Request,
-  res: Response<any, AuthLocals>,
-  next
-) => {
+const me: RequestHandler = async (_req: Request, res: Response<any, AuthLocals>, next) => {
   try {
     const userId = res.locals.authUser?.userId;
 
@@ -160,5 +132,5 @@ export const authController = {
   refresh,
   logout,
   logoutAll,
-  me,
+  me
 };
