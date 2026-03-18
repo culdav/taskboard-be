@@ -29,6 +29,9 @@ const boardSchema = new Schema(
       required: true,
       trim: true,
     },
+    description: {
+      type: String,
+    },
     owner: {
       type: Schema.Types.ObjectId,
       ref: 'User',

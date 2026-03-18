@@ -1,12 +1,5 @@
-import { DeleteResult, UpdateResult } from 'mongoose';
 import { CreateBoardInput } from '../controllers/board.controller';
-import {
-  Board,
-  BoardModel,
-  Card,
-  Column,
-  type BoardDocument,
-} from '../models/board.model';
+import { Board, BoardModel, type BoardDocument } from '../models/board.model';
 
 export const boardRepository = {
   async create(input: CreateBoardInput): Promise<BoardDocument> {
@@ -23,30 +16,20 @@ export const boardRepository = {
       .lean();
   },
 
-  async updateBoard(ownerId: number, updateData: Board): Promise<Board | null> {
-    return BoardModel.findOneAndUpdate({ owner: ownerId }, updateData).lean();
-  },
-
-  async deleteBoard(boardId: number, ownerId: number): Promise<boolean> {
-    const result = await BoardModel.deleteOne({ _id: boardId, owner: ownerId });
-    return result.deletedCount > 0;
-  },
-
-  async addColumn(boardId: number, columnData: Column): Promise<Board | null> {
-    return BoardModel.findOneAndUpdate(
-      { _id: boardId },
-      { $push: { columns: { columnData } } }
-    ).lean();
-  },
-
-  async addCard(
-    boardId: number,
-    columnId: number,
-    cardData: Card
+  async updateBoard(
+    boardId: string,
+    ownerId: string,
+    updateData: Partial<Pick<Board, 'title' | 'description'>>
   ): Promise<Board | null> {
     return BoardModel.findOneAndUpdate(
-      { _id: boardId, 'columns._id': columnId },
-      { $push: { 'columns.$.cards': { cardData } } }
+      { _id: boardId, owner: ownerId },
+      { $set: updateData },
+      { new: true }
     ).lean();
+  },
+
+  async deleteBoard(boardId: string, ownerId: string): Promise<boolean> {
+    const result = await BoardModel.deleteOne({ _id: boardId, owner: ownerId });
+    return result.deletedCount > 0;
   },
 };

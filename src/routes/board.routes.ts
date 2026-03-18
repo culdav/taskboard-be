@@ -1,18 +1,39 @@
 import { Router } from 'express';
-import { validateRequest } from '../middleware/validate.middleware';
-import { createBoardSchema } from '../modules/board/board.validation';
 import { boardController } from '../controllers/board.controller';
 import { requireAuth } from '../middleware/auth.middleware';
+import { validateRequest } from '../middleware/validate.middleware';
+import {
+  boardIdParamsSchema,
+  createBoardSchema,
+  updateBoardMetadataSchema,
+} from '../modules/board/board.validation';
 
-const boardRouter = Router();
+const boardsRouter = Router();
 
-boardRouter.get('/all', requireAuth, boardController.findAll);
+boardsRouter.get('/all', requireAuth, boardController.findAll);
 
-boardRouter.post(
+boardsRouter.post(
   '/',
   requireAuth,
   validateRequest({ body: createBoardSchema }),
   boardController.create
 );
 
-export default boardRouter;
+boardsRouter.patch(
+  '/:boardId',
+  requireAuth,
+  validateRequest({
+    params: boardIdParamsSchema,
+    body: updateBoardMetadataSchema,
+  }),
+  boardController.updateBoard
+);
+
+boardsRouter.delete(
+  '/:boardId',
+  requireAuth,
+  validateRequest({ params: boardIdParamsSchema }),
+  boardController.deleteBoard
+);
+
+export default boardsRouter;
