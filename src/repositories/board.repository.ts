@@ -7,7 +7,7 @@ export const boardRepository = {
   },
 
   async findAll(): Promise<Board[]> {
-    return BoardModel.find({}).populate('-refreshTokens').lean();
+    return BoardModel.find({}).lean();
   },
 
   async findBoardsByMemberId(memberId: number): Promise<Board[]> {

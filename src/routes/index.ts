@@ -3,6 +3,7 @@ import authRouter from './auth.routes';
 import boardRouter from './board.routes';
 import columnRouter from './column.routes';
 import cardRouter from './card.routes';
+import { requireAuth } from '../middleware/auth.middleware';
 
 const apiRouter = Router();
 
@@ -11,6 +12,9 @@ apiRouter.get('/', (_req, res) => {
 });
 
 apiRouter.use('/auth', authRouter);
+
+apiRouter.use(requireAuth);
+
 apiRouter.use('/boards', boardRouter);
 apiRouter.use('/boards/:boardId/columns', columnRouter);
 apiRouter.use('/boards/:boardId/columns/:columnId/cards', cardRouter);

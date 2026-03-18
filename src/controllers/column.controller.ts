@@ -18,13 +18,9 @@ const addColumn: RequestHandler<
   next
 ) => {
   try {
-    const userId = res.locals.authUser?.userId;
+    const userId = res.locals.authUser?.userId!;
     const { boardId } = req.params;
     const { title, position } = req.body;
-
-    if (!userId) {
-      throw new AppError('Unauthorized', 401);
-    }
 
     const payload = await columnService.addColumn(boardId, userId, {
       title,

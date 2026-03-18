@@ -9,7 +9,6 @@ const columnRouter = Router();
 
 columnRouter.post(
   '/',
-  requireAuth,
   validateRequest({ params: boardIdParamsSchema, body: addColumnSchema }),
   columnController.addColumn
 );

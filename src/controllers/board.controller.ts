@@ -14,14 +14,10 @@ const create: RequestHandler = async (
   next
 ) => {
   try {
-    const userId = res.locals.authUser?.userId;
+    const userId = res.locals.authUser?.userId!;
     const { title } = req.body as {
       title: string;
     } as CreateBoardInput;
-
-    if (!userId) {
-      throw new AppError('Unauthorized', 401);
-    }
 
     const payload = await boardService.create({
       title,
@@ -40,10 +36,7 @@ const findAll: RequestHandler = async (
   next
 ) => {
   try {
-    const userId = res.locals.authUser?.userId;
-    if (!userId) {
-      throw new AppError('Unauthorized', 401);
-    }
+    const userId = res.locals.authUser?.userId!;
 
     const payload = await boardService.findAll();
     res.status(201).json(payload);
@@ -58,13 +51,9 @@ const updateBoard: RequestHandler<{ boardId: string }, any, Board> = async (
   next
 ) => {
   try {
-    const userId = res.locals.authUser?.userId;
+    const userId = res.locals.authUser?.userId!;
     const { boardId } = req.params;
     const { title, description } = req.body;
-
-    if (!userId) {
-      throw new AppError('Unauthorized', 401);
-    }
 
     const payload = await boardService.updateBoard(boardId, userId, {
       title,
@@ -82,12 +71,8 @@ const deleteBoard: RequestHandler<{ boardId: string }> = async (
   next
 ) => {
   try {
-    const userId = res.locals.authUser?.userId;
+    const userId = res.locals.authUser?.userId!;
     const { boardId } = req.params;
-
-    if (!userId) {
-      throw new AppError('Unauthorized', 401);
-    }
 
     await boardService.deleteBoard(boardId, userId);
     res.status(204).send();
