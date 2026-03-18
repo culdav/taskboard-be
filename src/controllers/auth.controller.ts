@@ -1,8 +1,8 @@
 import type { Request, RequestHandler, Response } from 'express';
-import { authService } from '../services/auth.service.js';
-import { AppError } from '../utils/errors.js';
+import { authService } from '../services/auth.service';
+import { AppError } from '../utils/errors';
 
-type AuthLocals = {
+export type AuthLocals = {
   authUser?: {
     userId: string;
     email: string;
@@ -13,7 +13,7 @@ type AuthLocals = {
 function getClientMetadata(req: Request): { userAgent?: string; ip?: string } {
   return {
     userAgent: req.get('user-agent') ?? undefined,
-    ip: req.ip || undefined
+    ip: req.ip || undefined,
   };
 }
 
@@ -29,7 +29,7 @@ const register: RequestHandler = async (req, res, next) => {
       name,
       email,
       password,
-      ...getClientMetadata(req)
+      ...getClientMetadata(req),
     });
 
     res.status(201).json(payload);
@@ -48,7 +48,7 @@ const login: RequestHandler = async (req, res, next) => {
     const payload = await authService.login({
       email,
       password,
-      ...getClientMetadata(req)
+      ...getClientMetadata(req),
     });
 
     res.status(200).json(payload);
@@ -65,7 +65,7 @@ const refresh: RequestHandler = async (req, res, next) => {
 
     const payload = await authService.refreshSession({
       refreshToken,
-      ...getClientMetadata(req)
+      ...getClientMetadata(req),
     });
 
     res.status(200).json(payload);
@@ -74,7 +74,11 @@ const refresh: RequestHandler = async (req, res, next) => {
   }
 };
 
-const logout: RequestHandler = async (req: Request, res: Response<any, AuthLocals>, next) => {
+const logout: RequestHandler = async (
+  req: Request,
+  res: Response<any, AuthLocals>,
+  next
+) => {
   try {
     const { refreshToken } = req.body as {
       refreshToken: string;
@@ -94,7 +98,11 @@ const logout: RequestHandler = async (req: Request, res: Response<any, AuthLocal
   }
 };
 
-const logoutAll: RequestHandler = async (req: Request, res: Response<any, AuthLocals>, next) => {
+const logoutAll: RequestHandler = async (
+  req: Request,
+  res: Response<any, AuthLocals>,
+  next
+) => {
   try {
     const userId = res.locals.authUser?.userId;
 
@@ -110,7 +118,11 @@ const logoutAll: RequestHandler = async (req: Request, res: Response<any, AuthLo
   }
 };
 
-const me: RequestHandler = async (_req: Request, res: Response<any, AuthLocals>, next) => {
+const me: RequestHandler = async (
+  _req: Request,
+  res: Response<any, AuthLocals>,
+  next
+) => {
   try {
     const userId = res.locals.authUser?.userId;
 
@@ -132,5 +144,5 @@ export const authController = {
   refresh,
   logout,
   logoutAll,
-  me
+  me,
 };

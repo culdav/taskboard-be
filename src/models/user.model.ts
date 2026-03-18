@@ -1,11 +1,11 @@
 import {
   Schema,
   model,
-  type InferSchemaType,
   type HydratedDocument,
+  type InferSchemaType,
 } from 'mongoose';
 
-const refreshTokenSchema = new Schema(
+export const refreshTokenSchema = new Schema(
   {
     tokenHash: {
       type: String,
@@ -37,7 +37,7 @@ const refreshTokenSchema = new Schema(
   }
 );
 
-const userSchema = new Schema(
+export const userSchema = new Schema(
   {
     name: {
       type: String,

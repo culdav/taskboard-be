@@ -1,5 +1,5 @@
 import jwt, { type JwtPayload, type SignOptions } from 'jsonwebtoken';
-import { env } from '../config/env.js';
+import { env } from '../config/env';
 
 type AccessTokenPayload = {
   sub: string;

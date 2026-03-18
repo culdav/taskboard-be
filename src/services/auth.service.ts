@@ -1,9 +1,9 @@
 import { createHash } from 'node:crypto';
 import bcrypt from 'bcryptjs';
-import { env } from '../config/env.js';
-import { authRepository } from '../repositories/auth.repository.js';
-import { AppError } from '../utils/errors.js';
-import { jwtUtils } from '../utils/jwt.js';
+import { env } from '../config/env';
+import { authRepository } from '../repositories/auth.repository';
+import { AppError } from '../utils/errors';
+import { jwtUtils } from '../utils/jwt';
 import {
   AuthResponse,
   AuthSessionMetadata,
@@ -11,7 +11,7 @@ import {
   LogoutInput,
   RefreshInput,
   RegisterInput,
-} from './auth.types.js';
+} from './auth.types';
 
 function hashRefreshToken(token: string): string {
   return createHash('sha256').update(token).digest('hex');

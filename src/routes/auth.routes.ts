@@ -1,13 +1,13 @@
 import { Router } from 'express';
-import { authController } from '../controllers/auth.controller.js';
-import { requireAuth } from '../middleware/auth.middleware.js';
-import { validateRequest } from '../middleware/validate.middleware.js';
+import { authController } from '../controllers/auth.controller';
+import { requireAuth } from '../middleware/auth.middleware';
+import { validateRequest } from '../middleware/validate.middleware';
 import {
   loginBodySchema,
   logoutBodySchema,
   refreshBodySchema,
   registerBodySchema,
-} from '../modules/auth/auth.validation.js';
+} from '../modules/auth/auth.validation';
 
 const authRouter = Router();
 

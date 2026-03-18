@@ -1,6 +1,6 @@
 import type { RequestHandler } from 'express';
-import { jwtUtils } from '../utils/jwt.js';
-import { AppError } from '../utils/errors.js';
+import { jwtUtils } from '../utils/jwt';
+import { AppError } from '../utils/errors';
 
 export const requireAuth: RequestHandler = (req, res, next) => {
   const authorization = req.get('authorization');

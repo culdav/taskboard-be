@@ -1,6 +1,6 @@
 import type { RequestHandler } from 'express';
 import type { ZodType } from 'zod';
-import { AppError } from '../utils/errors.js';
+import { AppError } from '../utils/errors';
 
 type ValidationSchema = {
   body?: ZodType;

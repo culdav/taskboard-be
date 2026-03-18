@@ -1,8 +1,8 @@
 import http from 'node:http';
-import app from './app.js';
-import { connectDb, disconnectDb } from './config/db.js';
-import { env } from './config/env.js';
-import { initializeSockets } from './sockets/index.js';
+import app from './app';
+import { connectDb, disconnectDb } from './config/db';
+import { env } from './config/env';
+import { initializeSockets } from './sockets/index';
 import mongoose from 'mongoose';
 
 const httpServer = http.createServer(app);

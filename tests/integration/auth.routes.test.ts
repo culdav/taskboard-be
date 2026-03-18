@@ -18,7 +18,7 @@ vi.mock('../../src/services/auth.service.js', () => ({
   authService: authServiceMock,
 }));
 
-import app from '../../src/app.js';
+import app from '../../src/app';
 
 const sampleAuthResponse = {
   user: {

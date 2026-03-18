@@ -2,10 +2,10 @@ import cors from 'cors';
 import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
-import { env } from './config/env.js';
-import { errorHandler } from './middleware/error.middleware.js';
-import { notFoundHandler } from './middleware/not-found.middleware.js';
-import apiRouter from './routes/index.js';
+import { env } from './config/env';
+import { errorHandler } from './middleware/error.middleware';
+import { notFoundHandler } from './middleware/not-found.middleware';
+import apiRouter from './routes/index';
 
 const app = express();
 

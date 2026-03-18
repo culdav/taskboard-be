@@ -1,6 +1,6 @@
 import type { Server as HttpServer } from 'node:http';
 import { Server as SocketIOServer } from 'socket.io';
-import { env } from './env.js';
+import { env } from './env';
 
 export function createSocketServer(httpServer: HttpServer): SocketIOServer {
   return new SocketIOServer(httpServer, {

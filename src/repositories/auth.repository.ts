@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
-import { UserModel, type UserDocument } from '../models/user.model.js';
-import { FindByEmailOptions, RefreshTokenInsert } from './auth.types.js';
+import { UserModel, type UserDocument } from '../models/user.model';
+import { FindByEmailOptions, RefreshTokenInsert } from './auth.types';
 
 export const authRepository = {
   async createUser(input: {
